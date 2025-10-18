@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -203,7 +205,7 @@
             .form-container {
                 margin: 10px;
             }
-            
+
             .form-header {
                 padding: 30px 20px;
             }
@@ -222,6 +224,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <div class="form-header">
@@ -231,13 +234,13 @@
             </h2>
             <p><?= isset($item) ? 'Perbarui informasi item' : 'Isi form di bawah untuk menambah mobil' ?></p>
         </div>
-        
+
         <div class="form-body">
             <?php if (isset($_SESSION['success'])): ?>
                 <div class="alert alert-success">
                     <span>✓</span>
-                    <?php 
-                    echo $_SESSION['success']; 
+                    <?php
+                    echo $_SESSION['success'];
                     unset($_SESSION['success']);
                     ?>
                 </div>
@@ -246,49 +249,47 @@
             <?php if (isset($_SESSION['error'])): ?>
                 <div class="alert alert-error">
                     <span>✕</span>
-                    <?php 
-                    echo $_SESSION['error']; 
+                    <?php
+                    echo $_SESSION['error'];
                     unset($_SESSION['error']);
                     ?>
                 </div>
             <?php endif; ?>
-            
-            <form method="POST" action="index.php?controller=item&action=<?= isset($item) ? 'update&id='.$item['id'] : 'store' ?>" id="itemForm">
+
+            <form method="POST" action="index.php?controller=item&action=<?= isset($item) && $item ? 'update&id=' . $item['id'] : 'store' ?>" id="itemForm">
                 <div class="form-group">
                     <label for="nama">
                         Nama Item<span>*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        id="nama" 
-                        name="nama" 
-                        value="<?= htmlspecialchars($item['nama'] ?? '') ?>" 
+                    <input
+                        type="text"
+                        id="nama"
+                        name="nama"
+                        value="<?= htmlspecialchars($item['nama'] ?? '') ?>"
                         placeholder="Contoh: Bugatti Chiron"
-                        required 
-                        autofocus
-                    >
+                        required
+                        autofocus>
                     <div class="input-info">Masukkan nama item yang jelas dan deskriptif</div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="harga">
                         Harga<span>*</span>
                     </label>
                     <div class="input-prefix">
-                        <input 
-                            type="number" 
-                            id="harga" 
-                            name="harga" 
-                            value="<?= $item['harga'] ?? '' ?>" 
+                        <input
+                            type="number"
+                            id="harga"
+                            name="harga"
+                            value="<?= $item['harga'] ?? '' ?>"
                             placeholder="0"
                             min="0"
                             step="1000"
-                            required
-                        >
+                            required>
                     </div>
                     <div class="input-info">Masukkan harga dalam Rupiah (tanpa titik atau koma)</div>
                 </div>
-                
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-submit">
                         <span>💾</span>
@@ -305,7 +306,7 @@
 
     <script>
         const hargaInput = document.getElementById('harga');
-        
+
         hargaInput.addEventListener('blur', function() {
             if (this.value) {
                 const value = Math.round(parseFloat(this.value) / 1000) * 1000;
@@ -333,4 +334,5 @@
         });
     </script>
 </body>
+
 </html>
